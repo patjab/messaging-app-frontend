@@ -1,7 +1,8 @@
 const initialState = {
   connection: null,
   username: null,
-  messages: []
+  messages: [],
+  color: null
 }
 
 const messageController = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const messageController = (state = initialState, action) => {
       return {
         ...state,
         messages: [...state.messages, action.payload]
+      }
+    case "SET_COLOR":
+      return {
+        ...state,
+        color: action.payload
       }
     default:
       return state

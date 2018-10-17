@@ -10,8 +10,12 @@ body {
 }
 
 .username {
-  color: blue;
   font-weight: bolder;
+}
+
+.adminMessage {
+  text-align: center;
+  font-style: italic;
 }
 
 #conversation {

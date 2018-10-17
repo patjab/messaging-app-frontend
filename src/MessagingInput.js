@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { setUsername, addMessage, setConnection } from './actions'
+import { setUsername, addMessage, setConnection, setColor } from './actions'
 
 class MessagingInput extends Component {
 
@@ -18,7 +18,7 @@ class MessagingInput extends Component {
         this.props.setUsername(username.value)
         this.setUpConnection(username.value)
       } else {
-        this.send({username: this.props.username, message: message.value})
+        this.send({username: this.props.username, message: message.value, color: this.props.color})
         message.value = ""
       }
     }
@@ -28,7 +28,11 @@ class MessagingInput extends Component {
     const connection = new WebSocket('ws://localhost:9090', username)
     connection.onmessage = (message) => {
       const data = JSON.parse(message.data)
-      this.props.addMessage(data)
+      if (!this.props.color) {
+        this.props.setColor(data.color)
+      } else {
+        this.props.addMessage(data)
+      }
     }
     this.props.setConnection(connection)
   }
@@ -63,7 +67,8 @@ class MessagingInput extends Component {
 const mapStateToProps = (state) => {
   return {
     connection: state.connection,
-    username: state.username
+    username: state.username,
+    color: state.color
   }
 }
 
@@ -71,7 +76,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setConnection: (connection) => dispatch(setConnection(connection)),
     setUsername: (username) => dispatch(setUsername(username)),
-    addMessage: (message) => dispatch(addMessage(message))
+    addMessage: (message) => dispatch(addMessage(message)),
+    setColor: (color) => dispatch(setColor(color))
   }
 }
 
