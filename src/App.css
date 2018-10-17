@@ -19,6 +19,7 @@ body {
   height: 45vh;
   border-radius: 30px;
   padding: 2vmax;
+  overflow: auto;
 }
 
 #MessageInput {
@@ -31,6 +32,9 @@ body {
   padding: 1vmin;
 }
 
+#usernameBold {
+  font-weight: bold;
+}
 
 #AppContainer {
   grid-column: 2;
@@ -45,6 +49,9 @@ input[type=text], textarea {
   margin: 2px;
 }
 
-textarea {
-
+input[type=Submit] {
+  background-color: #000000;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #FFFFFF;
 }

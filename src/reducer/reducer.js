@@ -1,5 +1,6 @@
 const initialState = {
   connection: null,
+  username: null,
   messages: []
 }
 
@@ -9,6 +10,11 @@ const messageController = (state = initialState, action) => {
       return {
         ...state,
         connection: action.payload
+      }
+    case "SET_USERNAME":
+      return {
+        ...state,
+        username: action.payload
       }
     case "ADD_MESSAGE":
       return {

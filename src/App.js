@@ -8,9 +8,6 @@ import Conversation from './Conversation'
 import { setConnection, addMessage } from './actions'
 
 class App extends Component {
-  state = {
-    messages: []
-  }
 
   componentDidMount() {
     const connection = new WebSocket('ws://localhost:9090')
