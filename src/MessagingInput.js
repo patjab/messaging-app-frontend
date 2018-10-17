@@ -8,22 +8,17 @@ class MessagingInput extends Component {
   send = (message) => this.props.connection.send(JSON.stringify(message))
 
   handleMessaging = (e) => {
-    if ( e.type === 'submit' ) {
+    if ( e.type === 'submit' || (e.type === 'keydown' && e.key === 'Enter') ) {
       e.preventDefault()
 
-      if (!this.props.username) {
-        this.props.setUsername(e.target.username.value)
+      const username = e.target.username || e.currentTarget.username
+      const message = e.target.message || e.currentTarget.message
+
+      if (!this.props.username ) {
+        this.props.setUsername(username.value)
       } else {
-        this.send({username: this.props.username, message: e.target.message.value})
-        e.target.message.value = ""
-      }
-    } else if (e.type === 'keydown' && e.key === 'Enter') {
-      e.preventDefault()
-      if (!this.props.username) {
-        this.props.setUsername(e.currentTarget.username.value)
-      } else {
-        this.send({username: this.props.username, message: e.currentTarget.message.value})
-        e.currentTarget.message.value = ""
+        this.send({username: this.props.username, message: message.value})
+        message.value = ""
       }
     }
   }
