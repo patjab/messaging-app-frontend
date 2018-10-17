@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-const Conversation = (props) => {
-  const displayMessages = () => props.messages.map(message => <div className="line"><span className="username">{message.username}: </span><span className="message">{message.message}</span></div>)
+class Conversation extends Component {
+  displayMessages = () => this.props.messages.map(message => <div className="line"><span className="username">{message.username}: </span><span className="message">{message.message}</span></div>)
 
-  return (
-    <div id="conversation">
-      {displayMessages()}
-    </div>
-  )
+  render() {
+    return (
+      <div id="conversation">
+      {this.displayMessages()}
+      </div>
+    )
+  }
 }
 
-export default Conversation
+const mapStateToProps = (state) => {
+  return {
+    messages: state.messages
+  }
+}
+
+export default connect(mapStateToProps)(Conversation)

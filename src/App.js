@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import './App.css';
 
 import MessagingInput from './MessagingInput'
 import Conversation from './Conversation'
 
+import { setConnection, addMessage } from './actions'
+
 class App extends Component {
   state = {
-    connection: null,
     messages: []
   }
 
@@ -15,22 +17,29 @@ class App extends Component {
 
     connection.onmessage = (message) => {
       const data = JSON.parse(message.data)
-      this.setState({messages: [...this.state.messages, data]})
+      this.props.addMessage(data)
     }
 
-    this.setState({connection})
+    this.props.setConnection(connection)
   }
 
   render() {
     return (
       <div className="App">
         <div id="AppContainer">
-          <Conversation messages={this.state.messages}/>
-          <MessagingInput connection={this.state.connection} />
+          <Conversation />
+          <MessagingInput />
         </div>
       </div>
     )
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setConnection: (connection) => dispatch(setConnection(connection)),
+    addMessage: (message) => dispatch(addMessage(message))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

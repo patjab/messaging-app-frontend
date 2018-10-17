@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class MessagingInput extends Component {
 
@@ -16,9 +17,6 @@ class MessagingInput extends Component {
     }
   }
 
-  componentDidMount() {
-  }
-
   render() {
     return (
       <div id="MessageInput">
@@ -32,4 +30,10 @@ class MessagingInput extends Component {
   }
 }
 
-export default MessagingInput
+const mapStateToProps = (state) => {
+  return {
+    connection: state.connection
+  }
+}
+
+export default connect(mapStateToProps)(MessagingInput)
