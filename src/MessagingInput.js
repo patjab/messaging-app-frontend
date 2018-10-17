@@ -4,8 +4,22 @@ import { connect } from 'react-redux'
 import { setUsername, addMessage, setConnection, setColor, setActiveUsers } from './actions'
 
 class MessagingInput extends Component {
+  state = {
+    username: "",
+    error: ""
+  }
 
   send = (message) => this.props.connection.send(JSON.stringify(message))
+
+  controlUsername = (e) => {
+    const regex = /^[a-zA-Z0-9]*$/
+    const username = e.target.value
+    if ( regex.test(username) || username === '' ) {
+      this.setState({username: e.target.value, error: ""})
+    } else {
+      this.setState({error: 'Username may only contain alphanumeric characters'})
+    }
+  }
 
   handleMessaging = (e) => {
     if ( e.type === 'submit' || (e.type === 'keydown' && e.key === 'Enter') ) {
@@ -51,7 +65,10 @@ class MessagingInput extends Component {
       )
     } else {
       return (
-        <input type="text" id="username" placeholder="Please enter a username"/>
+        <Fragment>
+          <input type="text" id="username" placeholder="Please enter a username" onChange={this.controlUsername} value={this.state.username}/><br/>
+          { this.state.error !== "" ? this.state.error : null }
+        </Fragment>
       )
     }
   }
