@@ -25,3 +25,10 @@ export const setColor = (color) => {
     payload: color
   }
 }
+
+export const setActiveUsers = (users) => {
+  return {
+    type: "SET_ACTIVE_USERS",
+    payload: users
+  }
+}

@@ -4,25 +4,18 @@ import './App.css';
 
 import MessagingInput from './MessagingInput'
 import Conversation from './Conversation'
+import ActiveUsers from './ActiveUsers'
 
 import { setConnection, addMessage } from './actions'
 
 class App extends Component {
 
-  componentDidMount() {
-    // const connection = new WebSocket('ws://localhost:9090')
-    //
-    // connection.onmessage = (message) => {
-    //   const data = JSON.parse(message.data)
-    //   this.props.addMessage(data)
-    // }
-    //
-    // this.props.setConnection(connection)
-  }
-
   render() {
     return (
       <div className="App">
+        <div id="ActiveUsersContainer">
+          <ActiveUsers />
+        </div>
         <div id="AppContainer">
           <Conversation />
           <MessagingInput />

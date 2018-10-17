@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { setUsername, addMessage, setConnection, setColor } from './actions'
+import { setUsername, addMessage, setConnection, setColor, setActiveUsers } from './actions'
 
 class MessagingInput extends Component {
 
@@ -31,6 +31,9 @@ class MessagingInput extends Component {
       if (!this.props.color) {
         this.props.setColor(data.color)
       } else {
+        if ( data.users ) {
+          this.props.setActiveUsers(data.users)
+        }
         this.props.addMessage(data)
       }
     }
@@ -77,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
     setConnection: (connection) => dispatch(setConnection(connection)),
     setUsername: (username) => dispatch(setUsername(username)),
     addMessage: (message) => dispatch(addMessage(message)),
-    setColor: (color) => dispatch(setColor(color))
+    setColor: (color) => dispatch(setColor(color)),
+    setActiveUsers: (users) => dispatch(setActiveUsers(users))
   }
 }
 

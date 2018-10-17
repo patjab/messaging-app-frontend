@@ -2,7 +2,8 @@ const initialState = {
   connection: null,
   username: null,
   messages: [],
-  color: null
+  color: null,
+  activeUsers: []
 }
 
 const messageController = (state = initialState, action) => {
@@ -26,6 +27,11 @@ const messageController = (state = initialState, action) => {
       return {
         ...state,
         color: action.payload
+      }
+    case "SET_ACTIVE_USERS":
+      return {
+        ...state,
+        activeUsers: action.payload
       }
     default:
       return state
