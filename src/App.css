@@ -42,6 +42,7 @@ input[type=text], textarea {
   border-radius: 10px;
   font-size: 18px;
   width: 30vw;
+  margin: 2px;
 }
 
 textarea {
