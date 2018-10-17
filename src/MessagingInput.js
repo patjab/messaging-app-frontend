@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { setUsername } from './actions'
+import { setUsername, addMessage, setConnection } from './actions'
 
 class MessagingInput extends Component {
 
@@ -16,11 +16,21 @@ class MessagingInput extends Component {
 
       if (!this.props.username ) {
         this.props.setUsername(username.value)
+        this.setUpConnection(username.value)
       } else {
         this.send({username: this.props.username, message: message.value})
         message.value = ""
       }
     }
+  }
+
+  setUpConnection = (username) => {
+    const connection = new WebSocket('ws://localhost:9090', username)
+    connection.onmessage = (message) => {
+      const data = JSON.parse(message.data)
+      this.props.addMessage(data)
+    }
+    this.props.setConnection(connection)
   }
 
   displayFormComponents = () => {
@@ -29,14 +39,12 @@ class MessagingInput extends Component {
         <Fragment>
           <span id="usernameBold">{this.props.username}</span><br/>
           <textarea id="message"></textarea><br/>
-          <input type="Submit" value="Send"/><br/>
+          <input type="Submit" value="Send"/>
         </Fragment>
       )
     } else {
       return (
-        <Fragment>
-          <input type="text" id="username" placeholder="Please enter a username"/><br/>
-        </Fragment>
+        <input type="text" id="username" placeholder="Please enter a username"/>
       )
     }
   }
@@ -61,7 +69,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUsername: (username) => dispatch(setUsername(username))
+    setConnection: (connection) => dispatch(setConnection(connection)),
+    setUsername: (username) => dispatch(setUsername(username)),
+    addMessage: (message) => dispatch(addMessage(message))
   }
 }
 

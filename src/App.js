@@ -10,14 +10,14 @@ import { setConnection, addMessage } from './actions'
 class App extends Component {
 
   componentDidMount() {
-    const connection = new WebSocket('ws://localhost:9090')
-
-    connection.onmessage = (message) => {
-      const data = JSON.parse(message.data)
-      this.props.addMessage(data)
-    }
-
-    this.props.setConnection(connection)
+    // const connection = new WebSocket('ws://localhost:9090')
+    //
+    // connection.onmessage = (message) => {
+    //   const data = JSON.parse(message.data)
+    //   this.props.addMessage(data)
+    // }
+    //
+    // this.props.setConnection(connection)
   }
 
   render() {
